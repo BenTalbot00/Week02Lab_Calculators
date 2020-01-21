@@ -7,7 +7,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author 791397
  */
-@WebServlet(urlPatterns = {"/age"})
-public class AgeCalculatorServlet extends HttpServlet {
+public class ArithmeticCalculatorServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,33 +29,18 @@ public class AgeCalculatorServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        String ageString = (request.getParameter("ageString"));
-        String responseString = "";
-        int ageNum = 0;
-        System.out.println("servlet running");
-        if (ageString != null) {
-            System.out.println("passeed checked");
-            try {
-                ageNum = Integer.parseInt(ageString);
-                System.out.println("cgotnumber");
-            } catch (NumberFormatException e) {
-                responseString = "You must enter a number";
-            }
-            if (ageNum <= 0) {
-                responseString = "You must give your current age.";
-
-            } else {
-                responseString = "Your age next birthday will be " + ++ageNum;
-
-            }
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ArithmeticCalculatorServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ArithmeticCalculatorServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-
-        System.out.println("Age: " + ageNum);
-        System.out.println("Age next birthday: " + ageNum++);
-
-        request.setAttribute("responseMessage", responseString);
-        getServletContext().getRequestDispatcher("/AgeCalculator.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
