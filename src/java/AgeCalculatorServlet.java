@@ -7,6 +7,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author 791397
  */
+@WebServlet(urlPatterns = {"/age"})
 public class AgeCalculatorServlet extends HttpServlet {
 
     /**
@@ -29,18 +31,36 @@ public class AgeCalculatorServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AgeCalculatorServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AgeCalculatorServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        String ageString = (request.getParameter("ageString"));
+        String responseString;
+        int ageNum = 0;
+        if (ageString.isEmpty()) {
+           request.setAttribute("responseMessage", "");
+           getServletContext().getRequestDispatcher("/AgeCalculator.jsp").forward(request,response);
         }
+        
+        try {
+            ageNum = Integer.parseInt(ageString);
+        }
+        catch (NumberFormatException e) {
+           responseString = "You must enter a number";
+           
+        }
+        if (ageNum <= 0) {
+           responseString = "You must give your current age.";
+            
+        }
+        else {
+           responseString = "Your age next birthday will be " + ageNum++;
+           
+        }
+
+        System.out.println("Age: " + ageNum);
+        System.out.println("Age next birthday: " + ageNum++);
+        
+        request.setAttribute("responseMessage", responseString);
+        getServletContext().getRequestDispatcher("/AgeCalculator.jsp").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,4 +102,5 @@ public class AgeCalculatorServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+   
 }
