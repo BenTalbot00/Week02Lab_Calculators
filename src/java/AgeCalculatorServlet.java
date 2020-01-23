@@ -37,10 +37,8 @@ public class AgeCalculatorServlet extends HttpServlet {
         int ageNum = 0;
         System.out.println("servlet running");
         if (ageString != null) {
-            System.out.println("passeed checked");
             try {
                 ageNum = Integer.parseInt(ageString);
-                System.out.println("cgotnumber");
             } catch (NumberFormatException e) {
                 responseString = "You must enter a number";
             }

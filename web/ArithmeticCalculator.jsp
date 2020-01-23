@@ -14,16 +14,20 @@
     <body>
         <h1>Arithmetic Calculator</h1>
         <br/>
-        First:<input type="text" name="firstNum"/>
+        <form>
+            First:<input type="text" name="firstNum"/>
+            <br/>
+            Second:<input type="text" name="secondNum"/>
+            <br/>
+            <input type="submit" name="operation" value="+"/>
+            <input type="submit" name="operation" value="-"/>
+            <input type="submit" name="operation" value="*"/>
+            <input type="submit" name="operation" value="%"/>
+            <br/>
+            ${responseMessage}
+        </form>
         <br/>
-        Second:<input type="text" name="secondNum"/>
-        <br/>
-        <input type="button" name="+" value="+"/>
-        <input type="button" name="-" value="-"/>
-        <input type="button" name="*" value="*"/>
-        <input type="button" name="%" value="%"/>
-        <br/>
-        Age Calculator
-        
+        <a href="age">Age Calculator</a>
+
     </body>
 </html>

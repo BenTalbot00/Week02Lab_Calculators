@@ -21,6 +21,6 @@
         <br/>
         ${responseMessage}
         <br/>
-        Arithmetic Calculator
+        <a href="arithmetic">Arithmetic Calculator</a>
     </body>
 </html>

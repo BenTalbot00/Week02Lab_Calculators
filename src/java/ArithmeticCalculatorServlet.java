@@ -29,18 +29,52 @@ public class ArithmeticCalculatorServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ArithmeticCalculatorServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ArithmeticCalculatorServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String firstNumString = request.getParameter("firstNum");
+        String secondNumString = request.getParameter("secondNum");
+        String operation = request.getParameter("operation");
+        System.out.println(operation);
+        int firstNum = 0;
+        int secondNum = 0;
+        String responseMessage = "";
+        System.out.println("before null");
+        if (firstNumString != null && secondNumString != null) {
+            System.out.println("passed null");
+            try {
+                firstNum = Integer.parseInt(firstNumString);
+                secondNum = Integer.parseInt(secondNumString);
+            } catch (NumberFormatException e) {
+                responseMessage = "You must enter an Integer";
+            }
         }
+        request.setAttribute("responseMessage", this.calculate(operation, firstNum, secondNum));
+        getServletContext().getRequestDispatcher("/ArithmeticCalculator.jsp").forward(request, response);
+    }
+
+    public String calculate(String operation, int num1, int num2) {
+        int result = 0;
+        System.out.println("operation = " + operation);
+        System.out.println(num1);
+        System.out.println(num2);
+        if (operation != null) {
+            switch (operation) {
+                case "+":
+                    result = num1 + num2;
+                    break;
+                case "-":
+                    result = num1 - num2;
+                    break;
+                case "*":
+                    result = num1 * num2;
+                    break;
+                case "%":
+                    result = num1 / num2;
+            }
+            return "Result: " + result;
+        }
+        else {
+            return "";
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
